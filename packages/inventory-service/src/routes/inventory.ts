@@ -22,7 +22,7 @@ router.get("/all", async (req: Request, res: Response) => {
       .from(products);
 
     res.status(200).json({ products: allProducts });
-  } catch (error) {
+  } catch (error: any) {
     res
       .status(500)
       .json({ error: "Failed to fetch products", details: error.message });
