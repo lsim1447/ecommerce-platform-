@@ -40,7 +40,7 @@ router.post("/update", async (req: Request, res: Response) => {
         inventory_count: products.inventory_count,
       })
       .from(products)
-      .where(eq(products.id, productId));
+      .where(eq(products.id, Number(productId)));
 
     if (!product) {
       res.status(404).json({ error: "Product not found" });
@@ -77,7 +77,7 @@ router.get("/:productId", async (req: Request, res: Response) => {
     const [product] = await db
       .select()
       .from(products)
-      .where(eq(products.id, productId));
+      .where(eq(products.id, Number(productId)));
 
     if (!product) {
       res.status(404).json({ error: "Product not found" });
