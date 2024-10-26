@@ -1,4 +1,5 @@
 import React from "react";
+import Navigation from "../components/Navigation";
 
 export const metadata = {
   title: "Store Dashboard",
@@ -13,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Navigation />
         <main>{children}</main>
       </body>
     </html>
