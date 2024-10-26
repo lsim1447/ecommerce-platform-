@@ -4,8 +4,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "dev:docs": "turbo run dev --filter='./packages/*' --filter=docs --concurrency=14",
-    "dev:web": "turbo run dev --filter='./packages/*' --filter=web --concurrency=14",
+    "dev:dashboard": "turbo run dev --filter='./packages/*' --filter=dashboard --concurrency=14",
+    "dev:store": "turbo run dev --filter='./packages/*' --filter=store --concurrency=14",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

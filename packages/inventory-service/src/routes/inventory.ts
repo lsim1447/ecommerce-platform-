@@ -47,20 +47,19 @@ router.post("/update", async (req: Request, res: Response) => {
     }
 
     // Ensure inventory won't go negative
-    const newInventoryCount = product.inventory_count - quantity;
-    if (newInventoryCount < 0) {
-      res.status(400).json({ error: "Insufficient inventory" });
+    if (quantity < 0) {
+      res.status(400).json({ error: "Inventory_count cannot be negative!" });
     }
 
     // Update inventory count
     await db
       .update(products)
-      .set({ inventory_count: newInventoryCount })
+      .set({ inventory_count: quantity })
       .where(eq(products.id, productId));
 
     res.json({
       message: "Inventory updated successfully",
-      inventory_count: newInventoryCount,
+      inventory_count: quantity,
     });
   } catch (error) {
     res

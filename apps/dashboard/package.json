@@ -1,18 +1,20 @@
 {
-  "name": "web",
+  "name": "dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "axios": "^1.7.7",
     "next": "14.2.6",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -20,6 +22,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/styled-components": "^5.1.34",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "typescript": "5.4.5"
