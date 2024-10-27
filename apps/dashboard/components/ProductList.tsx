@@ -43,7 +43,7 @@ const ProductDetails = styled.div`
 `;
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
   inventory_count: number;
 }

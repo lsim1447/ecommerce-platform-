@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    // Simulate fetching data from a database or external API
+    // const allProducts: any[] = await findAllProducts();
     const allProducts: any[] = await db.select().from(productsSchema);
     return NextResponse.json(allProducts);
   } catch (error) {

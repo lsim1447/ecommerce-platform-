@@ -44,13 +44,16 @@ const UpdateInventory: React.FC = () => {
       })
         .then((response) => response.json())
         .then((response) => {
-          setMessage(
-            `Inventory updated! New count: ${response.inventory_count}`
-          );
+          if (!response.error) {
+            setMessage(
+              `Inventory updated! New count: ${response.inventory_count}`
+            );
+          } else {
+            setMessage(`Error: ${response.error}`);
+          }
         });
     } catch (error) {
-      setMessage("Error updating inventory");
-      console.error(error);
+      setMessage(`Error: ${error}`);
     }
   };
 

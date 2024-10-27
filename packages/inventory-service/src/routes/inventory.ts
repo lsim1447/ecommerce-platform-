@@ -1,25 +1,14 @@
 import { Router, Request, Response } from "express";
 import { productsSchema } from "../db/productsSchema";
-import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
 import { eq } from "drizzle-orm";
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL!,
-});
-const db = drizzle({ client: pool });
+import { db } from "../db/client";
+import { findAllProducts, updateProduct } from "../repository/product";
 
 const router = Router();
 
 router.get("/all", async (req: Request, res: Response) => {
   try {
-    const allProducts = await db
-      .select({
-        id: productsSchema.id,
-        name: productsSchema.name,
-        inventory_count: productsSchema.inventory_count,
-      })
-      .from(productsSchema);
+    const allProducts = await findAllProducts();
 
     res.status(200).json({ products: allProducts });
   } catch (error: any) {
@@ -33,34 +22,7 @@ router.post("/update", async (req: Request, res: Response) => {
   const { productId, quantity } = req.body;
 
   try {
-    const [product] = await db
-      .select({
-        id: productsSchema.id,
-        name: productsSchema.name,
-        inventory_count: productsSchema.inventory_count,
-      })
-      .from(productsSchema)
-      .where(eq(productsSchema.id, Number(productId)));
-
-    if (!product) {
-      res.status(404).json({ error: "Product not found" });
-    }
-
-    // Ensure inventory won't go negative
-    if (quantity < 0) {
-      res.status(400).json({ error: "Inventory_count cannot be negative!" });
-    }
-
-    // Update inventory count
-    await db
-      .update(productsSchema)
-      .set({ inventory_count: quantity })
-      .where(eq(productsSchema.id, productId));
-
-    res.json({
-      message: "Inventory updated successfully",
-      inventory_count: quantity,
-    });
+    updateProduct(productId, quantity);
   } catch (error) {
     res
       .status(500)

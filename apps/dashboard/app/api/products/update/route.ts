@@ -7,6 +7,15 @@ export async function POST(request: Request) {
   const { productId, quantity } = body;
 
   try {
+    // Ensure inventory won't go negative
+    if (quantity < 0) {
+      return NextResponse.json(
+        { error: "Inventory_count cannot be negative!" },
+        { status: 400 }
+      );
+    }
+
+    // get product by ID
     const [product] = await db
       .select({
         id: productsSchema.id,
@@ -17,14 +26,9 @@ export async function POST(request: Request) {
       .where(eq(productsSchema.id, Number(productId)));
 
     if (!product) {
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
-    }
-
-    // Ensure inventory won't go negative
-    if (quantity < 0) {
       return NextResponse.json(
-        { error: "Inventory_count cannot be negative!" },
-        { status: 400 }
+        { error: "Product not found. Double check the product ID." },
+        { status: 404 }
       );
     }
 
@@ -40,7 +44,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to update inventory", details: error },
+      {
+        error: "Failed to update inventory",
+        details: error,
+      },
       { status: 500 }
     );
   }

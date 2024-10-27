@@ -54,7 +54,7 @@ const ProductInventory = styled.p`
 `;
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
   inventory_count: number;
 }

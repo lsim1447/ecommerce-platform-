@@ -11,5 +11,7 @@ const pool = new Pool({
 
 export * from "./db/productsSchema";
 
+export * from "./repository/product";
+
 // Initialize the Drizzle ORM
 export const db = drizzle({ client: pool });
