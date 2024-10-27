@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { products } from "../db/products";
+import { productsSchema } from "../db/productsSchema";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { eq } from "drizzle-orm";
@@ -15,11 +15,11 @@ router.get("/all", async (req: Request, res: Response) => {
   try {
     const allProducts = await db
       .select({
-        id: products.id,
-        name: products.name,
-        inventory_count: products.inventory_count,
+        id: productsSchema.id,
+        name: productsSchema.name,
+        inventory_count: productsSchema.inventory_count,
       })
-      .from(products);
+      .from(productsSchema);
 
     res.status(200).json({ products: allProducts });
   } catch (error: any) {
@@ -35,12 +35,12 @@ router.post("/update", async (req: Request, res: Response) => {
   try {
     const [product] = await db
       .select({
-        id: products.id,
-        name: products.name,
-        inventory_count: products.inventory_count,
+        id: productsSchema.id,
+        name: productsSchema.name,
+        inventory_count: productsSchema.inventory_count,
       })
-      .from(products)
-      .where(eq(products.id, Number(productId)));
+      .from(productsSchema)
+      .where(eq(productsSchema.id, Number(productId)));
 
     if (!product) {
       res.status(404).json({ error: "Product not found" });
@@ -53,9 +53,9 @@ router.post("/update", async (req: Request, res: Response) => {
 
     // Update inventory count
     await db
-      .update(products)
+      .update(productsSchema)
       .set({ inventory_count: quantity })
-      .where(eq(products.id, productId));
+      .where(eq(productsSchema.id, productId));
 
     res.json({
       message: "Inventory updated successfully",
@@ -75,8 +75,8 @@ router.get("/:productId", async (req: Request, res: Response) => {
     // Fetch product inventory
     const [product] = await db
       .select()
-      .from(products)
-      .where(eq(products.id, Number(productId)));
+      .from(productsSchema)
+      .where(eq(productsSchema.id, Number(productId)));
 
     if (!product) {
       res.status(404).json({ error: "Product not found" });

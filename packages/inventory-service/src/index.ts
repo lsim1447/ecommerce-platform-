@@ -1,18 +1,15 @@
-import express from "express";
-import inventoryRoutes from "./routes/inventory";
-import * as dotenv from "dotenv";
+import { drizzle } from "drizzle-orm/node-postgres"; // Adjust according to your DB setup
+import { Pool } from "pg";
+import dotenv from "dotenv";
 
+// Load environment variables
 dotenv.config();
 
-const cors = require("cors");
-const app = express();
-app.use(cors());
-
-app.use(express.json());
-
-app.use("/inventory", inventoryRoutes);
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(`Inventory service running on port ${PORT}`);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // Ensure this is set in your .env file
 });
+
+export * from "./db/productsSchema";
+
+// Initialize the Drizzle ORM
+export const db = drizzle({ client: pool });

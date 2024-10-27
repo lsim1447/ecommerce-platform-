@@ -12,8 +12,7 @@
     "next.config.mjs",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "../dashboard/components/ProductList.tsx"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -17,5 +17,9 @@
   "packageManager": "pnpm@8.15.6",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.35.3",
+    "pg": "^8.13.1"
   }
 }

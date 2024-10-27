@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@repo/inventory-service": "workspace:*",
     "@repo/ui": "workspace:*",
     "axios": "^1.7.7",
     "next": "14.2.6",

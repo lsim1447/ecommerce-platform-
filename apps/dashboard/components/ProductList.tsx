@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchAllProducts } from "../services/inventoryService";
 
 // Wrapper for the product list
 const ProductListWrapper = styled.div`
@@ -54,18 +53,12 @@ const ProductList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await fetchAllProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
+    fetch("/api/products/getAll")
+      .then((response) => response.json())
+      .then((data: Product[]) => {
         setLoading(false);
-      }
-    };
-
-    loadProducts();
+        setProducts(data);
+      });
   }, []);
 
   if (loading) return <p>Loading products...</p>;
@@ -73,7 +66,7 @@ const ProductList: React.FC = () => {
   return (
     <ProductListWrapper>
       <h2>Product List</h2>
-      {products.map((product) => (
+      {products.map((product: Product) => (
         <ProductItem key={product.id}>
           <ProductImage src="https://fakeimg.pl/50/" alt="Product Image" />
           <ProductDetails>

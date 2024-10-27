@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { updateProductInventory } from "../services/inventoryService";
 
 const UpdateInventoryWrapper = styled.div`
   padding: 1rem;
@@ -36,8 +35,19 @@ const UpdateInventory: React.FC = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await updateProductInventory(productId, quantity);
-      setMessage(`Inventory updated! New count: ${response.inventory_count}`);
+      fetch("/api/products/update", {
+        method: "POST",
+        body: JSON.stringify({
+          productId,
+          quantity,
+        }),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setMessage(
+            `Inventory updated! New count: ${response.inventory_count}`
+          );
+        });
     } catch (error) {
       setMessage("Error updating inventory");
       console.error(error);
