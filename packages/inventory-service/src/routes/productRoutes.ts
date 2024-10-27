@@ -1,8 +1,5 @@
 import { Router, Request, Response } from "express";
-import { productsSchema } from "../db/productsSchema";
-import { eq } from "drizzle-orm";
-import { db } from "../db/client";
-import { findAllProducts, updateProduct } from "../repository/product";
+import { findAllProducts, findProductById, updateProduct } from "../repository";
 
 const router = Router();
 
@@ -18,27 +15,12 @@ router.get("/all", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/update", async (req: Request, res: Response) => {
-  const { productId, quantity } = req.body;
-
-  try {
-    updateProduct(productId, quantity);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to update inventory", details: error });
-  }
-});
-
 router.get("/:productId", async (req: Request, res: Response) => {
   const { productId } = req.params;
 
   try {
     // Fetch product inventory
-    const [product] = await db
-      .select()
-      .from(productsSchema)
-      .where(eq(productsSchema.id, Number(productId)));
+    const product = await findProductById(Number(productId));
 
     if (!product) {
       res.status(404).json({ error: "Product not found" });
@@ -52,6 +34,18 @@ router.get("/:productId", async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ error: "Failed to fetch inventory", details: error });
+  }
+});
+
+router.post("/update", async (req: Request, res: Response) => {
+  const { productId, quantity } = req.body;
+
+  try {
+    updateProduct(productId, quantity);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to update inventory", details: error });
   }
 });
 

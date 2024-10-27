@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -50,7 +49,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Navigation: React.FC = () => {
+export const Navigation: React.FC = () => {
   return (
     <NavWrapper>
       <Logo>My Store</Logo>
@@ -61,5 +60,3 @@ const Navigation: React.FC = () => {
     </NavWrapper>
   );
 };
-
-export default Navigation;

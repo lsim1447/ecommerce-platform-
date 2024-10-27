@@ -1,5 +1,8 @@
+// This file is not part of the requirements.
+// Only for presentational purpose
+
 import express from "express";
-import inventoryRoutes from "./routes/inventory";
+import productRoutes from "./routes/productRoutes";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -10,9 +13,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/inventory", inventoryRoutes);
+app.use("/products", productRoutes);
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-  console.log(`Inventory service running on port ${PORT}`);
+  console.log(`Products | Inventory service running on port ${PORT}`);
 });
