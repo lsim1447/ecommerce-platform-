@@ -37,7 +37,8 @@ This Turborepo has some additional tools already setup for you:
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd ecommerce-platform
+pnpm install
 pnpm build
 ```
 
@@ -46,28 +47,51 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd ecommerce-platform
 pnpm dev
 ```
 
-### Remote Caching
+This will run two application on two different ports.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/dashboard/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- http://localhost:3000/
+- http://localhost:3001/
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+# Monorepo Project
+
+This monorepo contains multiple services and libraries to support an e-commerce platform. Each service is isolated but shares common configurations, dependencies, and resources where applicable.
+
+## Project Structure
+
+```plaintext
+.
+├── apps
+│   ├── dashboard
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── ...
+│   ├── store
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── ...
+├── packages
+│   ├── inventory-service
+│   │   ├── src/
+│   │   ├── drizzle/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── ...
+│   ├── other-service/
+│   └── ui/
+├── package.json
+├── README.md
+└── ...
 
 ```
-cd my-turborepo
-npx turbo login
-```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/dashboard/concepts/personal-accounts/overview).
+### Services
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
+inventory-service: Manages product inventories, including adding, updating, and querying product stock.
+other-service: Placeholder for additional services or microservices.
 
 ## Useful Links
 
@@ -79,3 +103,7 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turbo.build/repo/dashboard/core-concepts/monorepos/filtering)
 - [Configuration Options](https://turbo.build/repo/dashboard/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/dashboard/reference/command-line-reference)
+
+```
+
+```
