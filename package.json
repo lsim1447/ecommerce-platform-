@@ -4,9 +4,10 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "dev:dashboard": "turbo run dev --filter='./packages/*' --filter=dashboard --concurrency=14",
-    "dev:store": "turbo run dev --filter='./packages/*' --filter=store --concurrency=14",
+    "dev:dashboard": "turbo run dev --filter=dashboard --concurrency=14",
+    "dev:store": "turbo run dev --filter=store --concurrency=14",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
