@@ -1,3 +1,4 @@
+import { Product } from "@repo/types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -52,12 +53,6 @@ const ProductInventory = styled.p`
   font-size: 0.9rem;
   color: #555;
 `;
-
-interface Product {
-  id: number;
-  name: string;
-  inventory_count: number;
-}
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

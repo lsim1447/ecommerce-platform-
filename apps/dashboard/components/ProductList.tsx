@@ -1,4 +1,5 @@
 "use client";
+import { Product } from "@repo/types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -41,12 +42,6 @@ const ProductImage = styled.img`
 const ProductDetails = styled.div`
   flex-grow: 1; /* Take available space */
 `;
-
-interface Product {
-  id: number;
-  name: string;
-  inventory_count: number;
-}
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
