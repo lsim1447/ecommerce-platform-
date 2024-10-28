@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useProduct } from "../app/contexts";
+import { Product } from "@repo/types";
 
 const UpdateInventoryWrapper = styled.div`
   padding: 1rem;
@@ -29,9 +31,11 @@ const Button = styled.button`
 `;
 
 const UpdateInventory: React.FC = () => {
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState<number>();
   const [quantity, setQuantity] = useState(0);
   const [message, setMessage] = useState("");
+
+  const { products, setProducts } = useProduct();
 
   const handleUpdate = async () => {
     try {
@@ -48,6 +52,17 @@ const UpdateInventory: React.FC = () => {
             setMessage(
               `Inventory updated! New count: ${response.inventory_count}`
             );
+            const updatedProducts = products.map((product: Product) => {
+              if (Number(product.id) === Number(productId)) {
+                return {
+                  ...product,
+                  inventory_count: response.inventory_count,
+                };
+              } else {
+                return product;
+              }
+            });
+            setProducts(updatedProducts);
           } else {
             setMessage(`Error: ${response.error}`);
           }

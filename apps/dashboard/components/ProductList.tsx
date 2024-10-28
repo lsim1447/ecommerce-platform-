@@ -2,6 +2,7 @@
 import { Product } from "@repo/types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useProduct } from "../app/contexts";
 
 // Wrapper for the product list
 const ProductListWrapper = styled.div`
@@ -44,7 +45,7 @@ const ProductDetails = styled.div`
 `;
 
 const ProductList: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, setProducts } = useProduct();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
