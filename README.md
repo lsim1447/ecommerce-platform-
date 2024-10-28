@@ -18,7 +18,9 @@ This Turborepo includes the following packages/apps:
 
 - `dashboard`: a [Next.js](https://nextjs.org/) app
 - `store`: another [Next.js](https://nextjs.org/) app
+- `@repo/inventory-service`: a stub microservice to communicate with postgres DB shared by both `store` and `dashboard` applications
 - `@repo/ui`: a stub React component library shared by both `store` and `dashboard` applications
+- `@repo/types`: a types shared by both `store` and `dashboard` applications
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
